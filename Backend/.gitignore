@@ -1,0 +1,12 @@
+# Ignora la cartella node_modules
+node_modules/
+
+# Ignora il file .env
+.env
+
+# Ignora il file sonarscan.bat
+sonarscan.bat
+
+# Ignora le cartelle .sonar e .scannerwork
+.sonar/
+.scannerwork/
