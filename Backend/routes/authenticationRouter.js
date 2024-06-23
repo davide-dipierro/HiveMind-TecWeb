@@ -8,6 +8,7 @@ export const authenticationRouter = express.Router();
  *  /auth:
  *    post:
  *      description: Authenticate user
+ *     tags: [Authentication]
  *      produces:
  *        - application/json
  *      requestBody:
@@ -45,6 +46,7 @@ authenticationRouter.post("/auth", async (req, res) => {
  *  /signup:
  *    post:
  *      description: Register a new user
+ *     produces:
  *      produces:
  *        - application/json
  *      requestBody:
@@ -81,11 +83,12 @@ authenticationRouter.post("/signup", (req, res, next) => {
  * /logout:
  *  get:
  *   description: Logout user
+ *  tags: [Authentication]
  *  responses:
  *   200:
  *   description: User logged out
  */
 authenticationRouter.get("/logout", (req, res) => {
-  // TODO: invalidate token
+  AuthController.invalidateToken(req, res);
   res.json({message: "User logged out"});
 });

@@ -1,0 +1,9 @@
+# .gitignore file
+
+# Back-end
+Backend/node_modules
+
+
+# Front-end
+Frontend/node_modules
+Frontend/dist

@@ -1,6 +1,6 @@
 import express from "express";
 import { IdeaController } from "../controllers/IdeaController.js";
-import { ensureUsersVoteOnlyOthersIdeasNotAlreadyVoted } from "../middleware/authorization.js";
+import { ensureUsersVoteOnlyIdeasNotAlreadyVoted } from "../middleware/authorization.js";
 
 export const voteRouter = new express.Router();
 
@@ -56,7 +56,7 @@ export const voteRouter = new express.Router();
  *       500:
  *         description: Errore interno del server
  */
-voteRouter.post("/vote/:id", ensureUsersVoteOnlyOthersIdeasNotAlreadyVoted, (req, res, next) => {
+voteRouter.post("/vote/:id", ensureUsersVoteOnlyIdeasNotAlreadyVoted, (req, res, next) => {
   IdeaController.vote(req).then(vote => {
     res.json(vote)
   }).catch(err => {

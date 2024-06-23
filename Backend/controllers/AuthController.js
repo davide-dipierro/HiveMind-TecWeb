@@ -1,7 +1,12 @@
 import { User, Idea, Vote } from "../models/Database.js";
-import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; // Will still use jsonwebtoken as jwt-redis builds on top of it
+import jwtr from "jwt-redis";
 import { Op } from "sequelize";
+import Redis from "ioredis";
 
+// Initialize Redis client and jwt-redis
+const redisClient = new Redis();
+const JWTR = new jwtr(redisClient);
 
 export class AuthController {
   /**
@@ -37,12 +42,17 @@ export class AuthController {
     return user.save(); //returns a Promise
   }
 
-  static issueToken(username){
-    return Jwt.sign({user:username}, process.env.TOKEN_SECRET, {expiresIn: `${24*60*60}s`});
+  static async issueToken(username){
+    return JWTR.sign({ user: username }, process.env.TOKEN_SECRET, { expiresIn: `${24*60*60}s` });
   }
 
-  static isTokenValid(token, callback){
-    Jwt.verify(token, process.env.TOKEN_SECRET, callback);
+  static async isTokenValid(token, callback){
+    try {
+      const payload = await JWTR.verify(token, process.env.TOKEN_SECRET);
+      callback(null, payload);
+    } catch (err) {
+      callback(err);
+    }
   }
 
   static async canUserVoteIdea(user, ideaId) {
@@ -56,6 +66,10 @@ export class AuthController {
       }
     });
     return idea !== null && vote === null;
+  }
+
+  static async invalidateToken(token){
+    return JWTR.destroy(token);
   }
 
 }
