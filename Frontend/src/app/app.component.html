@@ -1,0 +1,9 @@
+<div class="dark h-full bg-black">
+  <app-topbar class="fixed top-0 w-full bg-black z-50"/>
+  <main class="pt-16 sm:pt-36">
+    <router-outlet></router-outlet>
+  </main>
+  @if(this.authService.isUserAuthenticated()){
+    <app-navbar class="sm:hidden fixed bottom-0 w-full bg-black z-50"/>
+  }
+</div>

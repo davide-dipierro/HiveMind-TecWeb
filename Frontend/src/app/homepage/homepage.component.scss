@@ -1,0 +1,29 @@
+.bg-teal-800 {
+    background-color: #234e52; /* Usa il colore teal scuro desiderato */
+}
+
+.bg-teal-600 {
+    background-color: #319795; /* Usa il colore teal chiaro desiderato */
+}
+
+.hover\:bg-teal-950:hover {
+    background-color: #1d4044; /* Colore per hover */
+}
+
+.hover\:text-teal-500:hover {
+    color: #38b2ac; /* Colore per hover */
+}
+
+.masonry-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.masonry-item {
+    width: 230px; /* Assicurati che le colonne abbiano la larghezza corretta */
+}
+  
+ngx-masonry {
+    display: block;
+    margin: auto; /* Centra il contenuto */
+}
