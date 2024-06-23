@@ -1,0 +1,16 @@
+<div class="border-teal-800 border-t-2 bg-black p-1.5 mb">
+    <div class="container mx-auto flex justify-evenly flex-wrap">
+        <div class="w-full" id="navbar-default">
+        <ul class="font-semibold flex flex-row justify-evenly flex-wrap">
+            <li>
+                <button mat-button><a routerLink="/home"><mat-icon class="{{isActive('/home') ? 'text-teal-500' : 'text-teal-800'}}">home</mat-icon></a></button>
+            </li>
+            <li>
+                <button mat-button><a routerLink="/post"><mat-icon class="{{isActive('/post') ? 'text-teal-500' : 'text-teal-800'}}">add_circle</mat-icon></a></button>
+            </li>
+            <li>
+                <button mat-button><a routerLink="/profile"><mat-icon class="{{isActive('/profile') ? 'text-teal-500' : 'text-teal-800'}}">account_circle</mat-icon></a></button>
+            </li>
+        </ul>
+    </div>  
+</div>

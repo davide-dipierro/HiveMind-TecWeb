@@ -1,0 +1,12 @@
+<div class="min-w-96 max-w-sm sm:rounded overflow-hidden shadow-lg sm:bg-gray-900 bg-transparent border-b-2 border-teal-500 sm:border-b-0" [class.hover:bg-gray-800]="!inDetail">
+  <div (click)="viewIdea()" class="overflow-wrap break-word word-break break-all px-6 py-4">
+    <div class="font-bold text-white text-xl mb-2">{{this.idea.title}}</div>
+    <div class="font-semibold text-gray-400 text-lg mb-2">{{'@'}}{{this.idea.UserUserName}}</div>
+    <markdown class="text-gray-200 text-base" [data]="this.idea.description"></markdown>
+  </div>
+  <div class="px-6 py-4">
+    <button mat-button (click)="like()"><mat-icon class="text-green-700">thumb_up</mat-icon><span class="text-green-700">{{idea.PositiveVotes}}</span></button>
+    <button mat-button (click)="dislike()"><mat-icon class="text-red-700">thumb_down</mat-icon><span class="text-red-700">{{idea.NegativeVotes}}</span></button>
+    <button mat-button (click)="viewIdea();" class="text-white"><mat-icon>comment</mat-icon>Comment</button>
+  </div>
+</div>

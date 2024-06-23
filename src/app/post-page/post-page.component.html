@@ -1,0 +1,40 @@
+<section class="dark:bg-black-900 h-full">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-full">
+      <div class="max-w-sm sm:rounded overflow-hidden shadow-lgbg-transparent border-b-2 border-teal-900">
+        <div class="p-6 space-y-4 sm:space-y-6 sm:p-8">
+          <h2 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 sm:text-2xl dark:text-white">
+            Share your thoughts with the world
+          </h2>
+          <form class="space-y-4 sm:space-y-1" [formGroup]="postForm" (ngSubmit)="handlePost()">
+            <div>
+              <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your title</label>
+              <input type="text" formControlName="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" placeholder="Your title" required maxlength="30">
+              <div class="text-right text-sm text-gray-600 dark:text-gray-400">
+                {{ postForm.get('title')?.value?.length || 0 }}/30
+              </div>
+            </div>
+            <div>
+              <label for="content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your content</label>
+              <textarea formControlName="content" id="content" placeholder="Your content" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 h-32 resize-none" required maxlength="400"></textarea>
+              <div class="text-right text-sm text-gray-600 dark:text-gray-400">
+                {{ postForm.get('content')?.value?.length || 0 }}/400
+              </div>
+            </div>
+            <button type="submit" class="w-full text-white bg-teal-700 hover:bg-teal-800 rounded-lg text-sm px-5 py-2.5 text-center">Share</button>
+          </form>
+        </div>
+      </div>
+      <h3 class="mt-10 text-xl font-bold leading-tight tracking-tight text-center text-gray-900 sm:text-2xl dark:text-white">
+        Preview
+      </h3>
+      <app-idea-card class="" [inDetail]="true" [idea]="{
+        id: 1,
+        title: this.postForm.get('title')?.value || 'Title',
+        description: this.postForm.get('content')?.value || 'Content',
+        UserUserName: this.authService.getUser() || 'User',
+        PositiveVotes: 0,
+        NegativeVotes: 0
+      }" class="self-center m-4 max-w-sm"></app-idea-card>
+    </div>
+  </section>
+  

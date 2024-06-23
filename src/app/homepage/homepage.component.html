@@ -1,0 +1,39 @@
+<div class="sm:pr-16">
+    <div class="flex flex-col items-center justify-center bg-black rounded">
+        <ul class="sm:font-semibold mt-1 hidden sm:flex sm:mt-4 order-0 bg-black">
+            <li>
+                <button [ngClass]="{'bg-teal-800': this.restService.order==='mainstream'}" class="block py-2 px-3 rounded-l bg-transparent border-t border-b border-l border-teal-800 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('mainstream')">Mainstream</button>
+            </li>
+            <li>
+                <button [ngClass]="{'bg-teal-800': this.restService.order==='controversial'}" class="block py-2 px-3 bg-transparent border-t border-b border-teal-800 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('controversial')">Controversial</button>
+            </li>
+            <li>
+                <button [ngClass]="{'bg-teal-800': this.restService.order==='unpopular'}" class="block py-2 px-3 bg-transparent border-t border-b border-teal-800 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('unpopular')">Unpopular</button>
+            </li>
+            <li>
+                <button [ngClass]="{'bg-teal-800': this.restService.order==='newest'}" class="block py-2 px-3 rounded-r bg-transparent border-t border-b border-r border-teal-800 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('newest')">Newest</button>
+            </li>
+        </ul>
+    </div>
+    <div class="m-auto w-full">
+        <ngx-masonry [options]="{ itemSelector: '.masonry-item', columnWidth: 200, fitWidth: true }">
+            <div ngxMasonryItem class="masonry-item m-4" *ngFor="let card of ideas">
+                <app-idea-card [idea]="card"></app-idea-card>
+            </div>
+        </ngx-masonry>
+    </div>
+    
+    <!-- 384px
+    <div class="flex bg-black justify-center flex-wrap mb-10 pb-10 sm:mb-0 overflow-auto" (scroll)="onScroll($event)">
+        <ng-container *ngFor="let card of ideas">
+            <app-idea-card [idea]="card" class="self-center m-4 max-w-sm"></app-idea-card>
+        </ng-container>
+    </div>
+    -->
+
+</div>
+<div class="hidden sm:block fixed bottom-6 right-6">
+    <button mat-fab style="background-color: teal; color: #000;" aria-label="Add" (click)="goToCreateIdea()">
+        <mat-icon>add</mat-icon>
+    </button>        
+</div>

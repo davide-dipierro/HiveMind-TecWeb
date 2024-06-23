@@ -1,0 +1,45 @@
+<nav class="border-teal-800 border-b-2 bg-black p-4 mb">
+  <div class="container mx-auto flex justify-between flex-wrap">
+    <a routerLink="/welcome" class="flex items-center space-x-3 rtl:space-x-reverse flex-grow">
+      <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">HiveMind</span>
+    </a>
+    <div class="w-auto hidden sm:block" id="topbar-default">
+      <ul class="font-semibold flex p-4 mt-4 border-gray-100 rounded-lg space-x-8 rtl:space-x-reverse border-0 bg-white dark:bg-black dark:border-gray-700">
+        @if(! this.authService.isUserAuthenticated())
+        {
+            <li>
+                <a routerLink="/login" routerLinkActive="bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 text-white" class="block py-2 px-3 text-gray-900 rounded bg-transparent hover:bg-gray-100 border-0 hover:text-teal-700 p-0 dark:text-white dark:hover:text-teal-500 dark:hover:bg-gray-700 dark:hover:bg-transparent">Login</a>
+            </li>
+            <li>
+                <a routerLink="/signup" routerLinkActive="bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 text-white" class="block py-2 px-3 text-gray-900 rounded bg-transparent hover:bg-gray-100 border-0 hover:text-teal-700 p-0 dark:text-white dark:hover:text-teal-500 dark:hover:bg-gray-700 dark:hover:bg-transparent">Sign up</a>
+            </li>
+        } 
+        @else 
+        { 
+            <li>
+                <a routerLink="/home" routerLinkActive="bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 text-white" class="block py-2 px-3 text-gray-900 rounded bg-transparent hover:bg-gray-100 border-0 hover:text-teal-700 p-0 dark:text-white dark:hover:text-teal-500 dark:hover:bg-gray-700 dark:hover:bg-transparent" aria-current="page">Home</a>
+            </li>
+            <li>
+                <a routerLink="/post" routerLinkActive="bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 text-white" class="block py-2 px-3 text-gray-900 rounded bg-transparent hover:bg-gray-100 border-0 hover:text-teal-700 p-0 dark:text-white dark:hover:text-teal-500 dark:hover:bg-gray-700 dark:hover:bg-transparent">Create</a>
+            </li>
+            <li>
+                <a routerLink="/profile" routerLinkActive="bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 text-white" class="block py-2 px-3 text-gray-900 rounded bg-transparent hover:bg-gray-100 border-0 hover:text-teal-700 p-0 dark:text-white dark:hover:text-teal-500 dark:hover:bg-gray-700 dark:hover:bg-transparent">Profile</a>
+            </li> 
+        }
+      </ul>
+    </div>
+    @if(this.router.url === '/home'){
+      <div class="block sm:hidden sm:none sm:mt-4 order-0 bg-black text-white mr-10">
+          <button id="dropdownButton" (click)="openDropDown()" class="rounded block py-2 px-3 bg-transparent border border-teal-800 text-white hover:text-teal-500 hover:bg-teal-950">
+              Order by
+          </button>
+            <div id="dropdownMenu" [ngClass]="{'hidden': !showDropDown}" class="absolute mt-1 bg-black border border-teal-800 rounded shadow-lg">
+              <button [ngClass]="{'bg-teal-800': this.restService.order==='mainstream'}" class="block w-full text-left py-2 px-3 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('mainstream')">Mainstream</button>
+              <button [ngClass]="{'bg-teal-800': this.restService.order==='controversial'}" class="block w-full text-left py-2 px-3 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('controversial')">Controversial</button>
+              <button [ngClass]="{'bg-teal-800': this.restService.order==='unpopular'}" class="block w-full text-left py-2 px-3 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('unpopular')">Unpopular</button>
+              <button [ngClass]="{'bg-teal-800': this.restService.order==='newest'}" class="block w-full text-left py-2 px-3 text-white hover:text-teal-500 hover:bg-teal-950" (click)="ordinaPer('newest')">Newest</button>
+          </div>
+      </div>
+    }
+  </div>
+</nav>
