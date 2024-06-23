@@ -1,12 +1,9 @@
 import { User, Idea, Vote } from "../models/Database.js";
-import jwt from "jsonwebtoken"; // Will still use jsonwebtoken as jwt-redis builds on top of it
-import jwtr from "jwt-redis";
+import Jwt from "jsonwebtoken";
 import { Op } from "sequelize";
-import Redis from "ioredis";
 
-// Initialize Redis client and jwt-redis
-const redisClient = new Redis();
-const JWTR = new jwtr(redisClient);
+// Blacklist temporanea in memoria per i token invalidati
+const blacklistedTokens = new Set();
 
 export class AuthController {
   /**
@@ -42,16 +39,16 @@ export class AuthController {
     return user.save(); //returns a Promise
   }
 
-  static async issueToken(username){
-    return JWTR.sign({ user: username }, process.env.TOKEN_SECRET, { expiresIn: `${24*60*60}s` });
+  static issueToken(username){
+    return Jwt.sign({user:username}, process.env.TOKEN_SECRET, {expiresIn: `${24*60*60}s`});
   }
 
-  static async isTokenValid(token, callback){
-    try {
-      const payload = await JWTR.verify(token, process.env.TOKEN_SECRET);
-      callback(null, payload);
-    } catch (err) {
-      callback(err);
+  static isTokenValid(token, callback){
+    // Check if the token is in the blacklist
+    if (blacklistedTokens.has(token)) {
+      callback(new Error("Token is invalidated"), null);
+    } else {
+      Jwt.verify(token, process.env.TOKEN_SECRET, callback);
     }
   }
 
@@ -68,8 +65,21 @@ export class AuthController {
     return idea !== null && vote === null;
   }
 
-  static async invalidateToken(token){
-    return JWTR.destroy(token);
-  }
+  /**
+   * Invalidates a token by adding it to the blacklist
+   * @param {http.IncomingMessage} req 
+   * @param {http.ServerResponse} res 
+   */
+  static invalidateToken(req, res) {
+    const token = req.body.token;
 
+    if (!token) {
+      return res.status(400).json({ error: "Token is required" });
+    }
+
+    // Add the token to the blacklist
+    blacklistedTokens.add(token);
+
+    return res.status(200).json({ message: "Token invalidated successfully" });
+  }
 }
