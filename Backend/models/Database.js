@@ -62,22 +62,27 @@ Idea.addScope('withVotesCount', {
 });
 
 // Include comments
-Idea.addScope('full', {  attributes: {
+Idea.addScope('full', {  
+  attributes: {
+    include: [
+      [Sequelize.fn('COUNT', Sequelize.col('Votes.IdeaId')), 'TotalVotes'],
+      [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN Votes.value = 1 THEN 1 ELSE 0 END')), 'PositiveVotes'],
+      [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN Votes.value = 0 THEN 1 ELSE 0 END')), 'NegativeVotes'],
+      [Sequelize.literal('SUM(CASE WHEN Votes.value = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN Votes.value = 0 THEN 1 ELSE 0 END)'), 'score']
+    ]
+  },
   include: [
-    [Sequelize.fn('COUNT', Sequelize.col('Votes.IdeaId')), 'TotalVotes'],
-    [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN Votes.value = 1 THEN 1 ELSE 0 END')), 'PositiveVotes'],
-    [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN Votes.value = 0 THEN 1 ELSE 0 END')), 'NegativeVotes'],
-    [Sequelize.literal('SUM(CASE WHEN Votes.value = 1 THEN 1 ELSE 0 END) - SUM(CASE WHEN Votes.value = 0 THEN 1 ELSE 0 END)'), 'score']
-  ]
-},
-include: [
-  {
-    model: Vote, Comment,
-    attributes: [],
-    duplicating: false
-  }
-],
-group: ['Idea.id']
+    {
+      model: Vote,
+      attributes: [],
+      duplicating: false
+    },
+    {
+      model: Comment, // Include comments
+      duplicating: true
+    }
+  ],
+  group: ['Idea.id', 'Comments.id']
 });
 
 
