@@ -58,7 +58,7 @@ export class IdeaCardComponent {
           console.log(data);
         },
         error: (err) => {
-          this.toastr.error("Hai già votato!" , "Non puoi votare due volte la stessa idea!");
+          this.toastr.error("Non puoi votare la tua idea o votare due volte la stessa idea!" , "Errore nel voto!");
           console.error(err);
         }
       });
