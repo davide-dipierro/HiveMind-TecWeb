@@ -21,7 +21,7 @@ export function enforceAuthentication(req, res, next){
   });
 }
 
-export async function ensureUsersVoteOnlyIdeasNotAlreadyVoted(req, res, next){
+export async function ensureUsersVoteOnlyOtherUsersIdeasNotAlreadyVoted(req, res, next){
   const user = req.username;
   const ideaId = req.params.id;
   const userHasPermission = await AuthController.canUserVoteIdea(user, ideaId);

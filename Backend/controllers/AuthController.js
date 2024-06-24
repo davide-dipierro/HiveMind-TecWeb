@@ -58,11 +58,11 @@ export class AuthController {
       where: {
         [Op.and]: [
           { UserUserName: user },
-          { IdeaId: ideaId }
+          { IdeaId: ideaId },
         ]
       }
     });
-    return idea !== null && vote === null;
+    return idea !== null && vote === null && idea.UserUserName !== user;
   }
 
   /**

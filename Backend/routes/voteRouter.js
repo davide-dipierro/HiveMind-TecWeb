@@ -9,7 +9,7 @@ export const voteRouter = new express.Router();
  * /vote/{id}:
  *   post:
  *     summary: Vota un'idea
- *     description: Permette a un utente di votare un'idea, a condizione che l'utente non abbia già votato quell'idea.
+ *     description: Permette a un utente di votare un'idea, a condizione che l'utente non abbia già votato quell'idea e che l'idea sia stata creata da un altro utente.
  *     tags: [Vote]
  *     parameters:
  *       - in: path
@@ -56,7 +56,7 @@ export const voteRouter = new express.Router();
  *       500:
  *         description: Errore interno del server
  */
-voteRouter.post("/vote/:id", ensureUsersVoteOnlyIdeasNotAlreadyVoted, (req, res, next) => {
+voteRouter.post("/vote/:id", ensureUsersVoteOnlyOtherUsersIdeasNotAlreadyVoted, (req, res, next) => {
   IdeaController.vote(req).then(vote => {
     res.json(vote)
   }).catch(err => {
