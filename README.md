@@ -7,3 +7,5 @@ Make sure you are in the desired directory before running these commands.
 The website will be aviable at http://localhost:80/
 The server will be aviable at http://localhost:3000/
 The Swagger UI documentation will be aviable at http://localhost:3000/api-docs/
+
+WARNING: THIS DEMO ONLY WORKS FOR LOCAL USE
