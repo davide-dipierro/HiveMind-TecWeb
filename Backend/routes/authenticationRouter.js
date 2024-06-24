@@ -7,6 +7,7 @@ export const authenticationRouter = express.Router();
  * @swagger
  *  /auth:
  *    post:
+ *    summary: Authenticate user
  *      description: Authenticate user
  *      tags: [Authentication]
  *      produces:
@@ -45,7 +46,9 @@ authenticationRouter.post("/auth", async (req, res) => {
  * @swagger
  *  /signup:
  *    post:
+ *     summary: Register a new user
  *      description: Register a new user
+ *      tags: [Authentication]
  *      produces:
  *        - application/json
  *      requestBody:
@@ -81,6 +84,7 @@ authenticationRouter.post("/signup", (req, res, next) => {
  * @swagger
  * /logout:
  *   get:
+ *    summary: Logs out the user
  *     description: Logs out the user
  *     tags: [Authentication]
  *     produces:
