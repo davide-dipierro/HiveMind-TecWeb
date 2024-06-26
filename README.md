@@ -1,4 +1,6 @@
-## Web technologies project of the University of Naples Federico II - 2023/2024
+# HiveMind-TecWeb
+Web technologies project of the University of Naples Federico II - 2023/2024
+
 
 To get started with the HiveMind-TecWeb application, make sure you have Docker and Docker Compose installed on your system. Once you have them installed, you can launch the application by running the command "docker-compose up". 
 
