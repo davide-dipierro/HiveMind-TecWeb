@@ -1,14 +1,15 @@
 # HiveMind-TecWeb
 Web technologies project of the University of Naples Federico II - 2023/2024
 
+## Prerequisites
+- Docker
+- Docker compose
+
 ## Download
 To download the HiveMind-TecWeb repository, you can use the following command: 
 ```sh
 git clone https://github.com/davide-dipierro/HiveMind-TecWeb
 ```
-
-## Prerequisite
-- Docker and Docker Compose installed
 
 ## Launch
 Once you have them installed, you can launch the application by running the command
